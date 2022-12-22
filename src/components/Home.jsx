@@ -1,32 +1,56 @@
 import "./Home.scss";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getData } from "../Redux/action";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getData } from "../Redux/action";
+import axios from "axios";
+import Data from "./Data";
+import Pagination from "./Pagination";
 
 const Home = () => {
-  const [search, setSearch] = useState("");
-  const [d, setD] = useState([]);
-
-  const { data } = useSelector((state) => state.data);
-  const dispatch = useDispatch();
+  // const [search, setSearch] = useState("");
+  // const [d, setD] = useState([]);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage] = useState(10);
 
   useEffect(() => {
-    getData(dispatch);
-  }, [dispatch]);
+    const getData = async () => {
+      setLoading(true);
+      const res = await axios.get(`https://api.spacexdata.com/v3/capsules`);
+      setData(res.data);
+      setLoading(false);
+    };
+    getData();
+  }, []);
 
-  const searchData = async (title) => {
-    const response = await fetch(
-      `https://api.spacexdata.com/v3/capsules?s=${title}`
-    );
-    const data = await response.json();
-    setD(data.Search);
-  };
+  const indexOfLastData = currentPage * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentData = data.slice(indexOfFirstData, indexOfLastData);
 
-  const handleKey = (e) => {
-    if (e.code === "Enter" || e.code === "NumpadEnter") {
-      searchData(search);
-    }
-  };
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
+  // const { data } = useSelector((state) => state.data);
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   getData(dispatch);
+  // }, [dispatch]);
+
+  // const searchData = async (title) => {
+  //   const response = await fetch(
+  //     `https://api.spacexdata.com/v3/capsules?s=${title}`
+  //   );
+  //   const data = await response.json();
+  //   setD(data.Search);
+  // };
+
+  // const handleKey = (e) => {
+  //   if (e.code === "Enter" || e.code === "NumpadEnter") {
+  //     searchData(search);
+  //   }
+  // };
 
   return (
     <div className="Div">
@@ -37,9 +61,9 @@ const Home = () => {
             type="text"
             placeholder="Input Placeholder"
             className="input"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={handleKey}
+            // value={search}
+            // onChange={(e) => setSearch(e.target.value)}
+            // onKeyDown={handleKey}
           />
           {/* <input
             type="text"
@@ -55,23 +79,16 @@ const Home = () => {
             type="button"
             value="Search"
             className="input search"
-            onClick={() => searchData(search)}
+            // onClick={() => searchData(search)}
           />
         </div>
       </div>
-      <div className="box">
-        {data.map((d) => (
-          <div className="card" key={d.capsule_serial}>
-            <p>Capsule Serial: {d.capsule_serial}</p>
-            <p>Capsule_id: {d.capsule_id}</p>
-            <p>Status: {d.status}</p>
-            <p>Original Launch Unix: {d.original_launch_unix}</p>
-            <p>Landings: {d.landings}</p>
-            <p>Type: {d.type}</p>
-            <p>Reuse Count: {d.reuse_count}</p>
-          </div>
-        ))}
-      </div>
+      <Data data={currentData} loading={loading} />
+      <Pagination
+        dataPerPage={dataPerPage}
+        totalData={data.length}
+        paginate={paginate}
+      />
     </div>
   );
 };
