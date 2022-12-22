@@ -1,6 +1,7 @@
 import React from "react";
 
 const Popup = ({ buttonPopup, setButtonPopup, data }) => {
+  console.log(data);
   return buttonPopup ? (
     <div className="popup">
       <div className="popup-inner">
