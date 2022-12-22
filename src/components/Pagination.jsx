@@ -1,5 +1,4 @@
 import React from "react";
-import "./Pagination.scss";
 
 const Pagination = ({ dataPerPage, totalData, paginate }) => {
   const pageNumbers = [];
@@ -13,8 +12,8 @@ const Pagination = ({ dataPerPage, totalData, paginate }) => {
       <ul className="pagination">
         {/* <div>&laquo;</div> */}
         {pageNumbers.map((number) => (
-          <div key={number} className="page-item">
-            <a onClick={() => paginate(number)} href="!#" className="page-link">
+          <div key={number}>
+            <a onClick={() => paginate(number)} href="!#">
               {number}
             </a>
           </div>

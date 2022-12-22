@@ -1,13 +1,5 @@
-import "./Navbar.scss";
-// import LogoS from "../../assets/images/logo-c.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHome,
-  faUser,
-  faEnvelope,
-  // faAward,
-  // faTasks,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHome, faUser, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   return (
@@ -25,14 +17,6 @@ const Navbar = () => {
           <div className="about-link">
             <FontAwesomeIcon icon={faUser} color="#4d4d4e" />
           </div>
-
-          {/* <div className="skill-link">
-            <FontAwesomeIcon icon={faAward} color="#4d4d4e" />
-          </div>
-
-          <div className="project-link">
-            <FontAwesomeIcon icon={faTasks} color="#4d4d4e" />
-          </div> */}
           <div className="contact-link">
             <FontAwesomeIcon icon={faEnvelope} color="#4d4d4e" />
           </div>

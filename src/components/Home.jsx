@@ -5,10 +5,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Data from "./Data";
 import Pagination from "./Pagination";
+import Popup from "./Popup";
 
 const Home = () => {
-  // const [search, setSearch] = useState("");
-  // const [d, setD] = useState([]);
+  const [search, setSearch] = useState("");
+  const [buttonPopup, setButtonPopup] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +31,6 @@ const Home = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-
   // const { data } = useSelector((state) => state.data);
   // const dispatch = useDispatch();
 
@@ -38,52 +38,19 @@ const Home = () => {
   //   getData(dispatch);
   // }, [dispatch]);
 
-  // const searchData = async (title) => {
-  //   const response = await fetch(
-  //     `https://api.spacexdata.com/v3/capsules?s=${title}`
-  //   );
-  //   const data = await response.json();
-  //   setD(data.Search);
-  // };
-
-  // const handleKey = (e) => {
-  //   if (e.code === "Enter" || e.code === "NumpadEnter") {
-  //     searchData(search);
-  //   }
-  // };
-
   return (
     <div className="Div">
       <div className="search">
-        <h2>Search Form</h2>
-        <div className="search1">
-          <input
-            type="text"
-            placeholder="Input Placeholder"
-            className="input"
-            // value={search}
-            // onChange={(e) => setSearch(e.target.value)}
-            // onKeyDown={handleKey}
-          />
-          {/* <input
-            type="text"
-            placeholder="Input Placeholder"
-            className="input"
-          />
-          <input
-            type="text"
-            placeholder="Input Placeholder"
-            className="input"
-          /> */}
-          <input
-            type="button"
-            value="Search"
-            className="input search"
-            // onClick={() => searchData(search)}
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Search by status..."
+          className="input"
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
-      <Data data={currentData} loading={loading} />
+
+      <Data data={currentData} loading={loading} search={search} />
+      <Popup buttonPopup={buttonPopup} setButtonPopup={setButtonPopup} />
       <Pagination
         dataPerPage={dataPerPage}
         totalData={data.length}
