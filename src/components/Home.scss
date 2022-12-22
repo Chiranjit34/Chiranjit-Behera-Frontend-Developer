@@ -1,0 +1,46 @@
+.Div {
+  margin-top: 80px;
+  .search {
+    h2{
+      margin-left: 35px;
+      opacity: 0.8;
+      font-size: 35px;
+    }
+      .search1 {
+        margin: auto;
+      max-width: 1920px;
+      display: flex;
+      gap: 30px;
+      margin-left: 35px;
+      .input {
+        width: 200px;
+        height: 30px;
+        border: none;
+        border-radius: 7px;
+      }
+      .search{
+        color: azure;
+        background-color: #606060;
+      }
+    }
+  }
+
+  .box {
+    margin: auto;
+    margin-top: 40px;
+    max-width: 1920px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    .card {
+      width: 300px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgb(7, 25, 63);
+      background: rgb(138, 111, 25);
+      padding: 10px;
+      position: relative;
+      color: azure;
+      margin: 15px;
+    }
+  }
+}
